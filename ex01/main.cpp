@@ -5,6 +5,19 @@
 #include <limits>
 #include <algorithm>
 
+template <typename T>
+typename T::iterator easyfind(T& container, int value)
+{
+	typename T::iterator iter;
+
+	iter = std::find(container.begin(), container.end(), value);
+	if (iter == container.end()) 
+	{
+		throw std::runtime_error("value is not in this container");
+	}
+	return iter;
+}
+
 class Span {
 private:
     std::vector<int> numbers;
@@ -32,10 +45,11 @@ public:
             throw std::logic_error("Not enough numbers to find a span");
         }
 
-        std::sort(numbers.begin(), numbers.end());
+        std::vector<int> tmp = numbers;
+        std::sort(tmp.begin(), tmp.end());
         int minSpan = std::numeric_limits<int>::max();
 
-        for (std::vector<int>::iterator it = std::next(numbers.begin()); it != numbers.end(); ++it) {
+        for (std::vector<int>::iterator it = std::next(tmp.begin()); it != tmp.end(); ++it) {
             int span = *it - *(std::prev(it));
             if (span < minSpan) {
                 minSpan = span;
