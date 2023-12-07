@@ -6,7 +6,7 @@
 /*   By: iecharak <iecharak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 21:52:56 by iecharak          #+#    #+#             */
-/*   Updated: 2023/11/28 21:57:31 by iecharak         ###   ########.fr       */
+/*   Updated: 2023/12/07 20:52:13 by iecharak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ class MutantStack : public std::stack<T, Container>
 
         // Constructors
         MutantStack() : std::stack<T, Container>() {}
-        MutantStack(const MutantStack& other) : std::stack<T, Container>(other) {}
+        MutantStack(const MutantStack& src) : std::stack<T, Container>(src) {}
 
         // Assignment operator
-        MutantStack& operator=(const MutantStack& other) {
-            if (this != &other) {
-                std::stack<T, Container>::operator=(other);
+        MutantStack& operator=(const MutantStack& src) {
+            if (this != &src) {
+                std::stack<T, Container>::operator=(src);
             }
             return *this;
         }

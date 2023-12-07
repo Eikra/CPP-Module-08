@@ -6,7 +6,7 @@
 /*   By: iecharak <iecharak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 21:56:18 by iecharak          #+#    #+#             */
-/*   Updated: 2023/11/28 22:02:56 by iecharak         ###   ########.fr       */
+/*   Updated: 2023/12/07 21:09:04 by iecharak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,42 @@
 
 int main()
 {
+    // Test with MutantStack
     MutantStack<int> mstack;
     mstack.push(5);
     mstack.push(17);
-    std::cout << mstack.top() << std::endl;
+    std::cout << "Top: " << mstack.top() << std::endl;
     mstack.pop();
-    std::cout << mstack.size() << std::endl;
+    std::cout << "Size after pop: " << mstack.size() << std::endl;
     mstack.push(3);
     mstack.push(5);
     mstack.push(737);
-    //[...]
-    mstack.push(0);
-    MutantStack<int>::iterator it = mstack.begin();
-    MutantStack<int>::iterator ite = mstack.end();
-    ++it;
-    --it;
-    while (it != ite)
+
+    // Iterating using iterators
+    std::cout << "Iterating using iterators:" << std::endl;
+    for (MutantStack<int>::iterator it = mstack.begin(); it != mstack.end(); ++it)
     {
-    std::cout << *it << std::endl;
-    ++it;
+        std::cout << *it << std::endl;
     }
-    std::stack<int> s(mstack);
+
+    // Test with std::list for comparison
+    std::list<int> lst;
+    lst.push_back(5);
+    lst.push_back(17);
+    std::cout << "Top: " << lst.back() << std::endl;
+    lst.pop_back();
+    std::cout << "Size after pop: " << lst.size() << std::endl;
+    lst.push_back(3);
+    lst.push_back(5);
+    lst.push_back(737);
+
+    // Iterating using iterators
+    std::cout << "Iterating using iterators (std::list):" << std::endl;
+    for (std::list<int>::iterator it = lst.begin(); it != lst.end(); ++it)
+    {
+        std::cout << *it << std::endl;
+    }
+
     return 0;
 }
 // int main() 

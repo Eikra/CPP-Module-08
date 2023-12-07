@@ -1,103 +1,86 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iecharak <iecharak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/07 21:47:11 by iecharak          #+#    #+#             */
+/*   Updated: 2023/12/07 21:57:51 by iecharak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <iostream>
-#include <vector>
-#include <stdexcept>
-#include <limits>
-#include <algorithm>
-
-template <typename T>
-typename T::iterator easyfind(T& container, int value)
-{
-	typename T::iterator iter;
-
-	iter = std::find(container.begin(), container.end(), value);
-	if (iter == container.end()) 
-	{
-		throw std::runtime_error("value is not in this container");
-	}
-	return iter;
-}
-
-class Span {
-private:
-    std::vector<int> numbers;
-    unsigned int maxSize;
-
-public:
-    Span(unsigned int N) : maxSize(N) {}
-
-    void addNumber(int num) {
-        if (numbers.size() >= maxSize) {
-            throw std::out_of_range("Span is already full");
-        }
-        numbers.push_back(num);
-    }
-
-    void addNumbers(const std::vector<int>& nums) {
-        if (numbers.size() + nums.size() > maxSize) {
-            throw std::out_of_range("Adding these numbers will exceed the maximum size of Span");
-        }
-        numbers.insert(numbers.end(), nums.begin(), nums.end());
-    }
-
-    int shortestSpan() {
-        if (numbers.size() <= 1) {
-            throw std::logic_error("Not enough numbers to find a span");
-        }
-
-        std::vector<int> tmp = numbers;
-        std::sort(tmp.begin(), tmp.end());
-        int minSpan = std::numeric_limits<int>::max();
-
-        for (std::vector<int>::iterator it = std::next(tmp.begin()); it != tmp.end(); ++it) {
-            int span = *it - *(std::prev(it));
-            if (span < minSpan) {
-                minSpan = span;
-            }
-        }
-
-        return minSpan;
-    }
-
-    int longestSpan() {
-        if (numbers.size() <= 1) {
-            throw std::logic_error("Not enough numbers to find a span");
-        }
-
-        std::pair<std::vector<int>::iterator, std::vector<int>::iterator> minMax =
-            std::minmax_element(numbers.begin(), numbers.end());
-
-        return *(minMax.second) - *(minMax.first);
-    }
-};
+#include "Span.hpp"
 
 int main() {
     try
     {   
         Span sp = Span(9);
-        sp.addNumber(6);
+        sp.addNumber(-1);
         sp.addNumber(3);
         sp.addNumber(17);
         sp.addNumber(9);
         sp.addNumber(11);
-        std::cout << sp.shortestSpan() << std::endl;
-        std::cout << sp.longestSpan() << std::endl;
+        std::cout << "shortest Span: " << sp.shortestSpan() << std::endl;
+        std::cout << "longest Span: " << sp.longestSpan() << std::endl;
 
+        std::cout << "\n--------------------------\n\n";
+        
         // Adding numbers using a range of iterators
         std::vector<int> additionalNumbers;
         additionalNumbers.push_back(2);
         additionalNumbers.push_back(8);
         additionalNumbers.push_back(1);
         additionalNumbers.push_back(20);
-        sp.addNumbers(additionalNumbers);
+        sp.addNumbers(additionalNumbers.begin() + 1, additionalNumbers.end());
 
-        std::cout << sp.shortestSpan() << std::endl;
-        std::cout << sp.longestSpan() << std::endl;
+        std::cout << "shortest Span: " << sp.shortestSpan() << std::endl;
+        std::cout << "longest Span: " << sp.longestSpan() << std::endl;
     }
     catch(std::exception &e)
     {
         std::cout << e.what() << '\n';
     }
+    std::cout << "\n*************************\n\n";
+    try
+    {    
+        // Test Case 1: Basic functionality with single numbers
+        Span span1(8);
+        span1.addNumber(10);
+        span1.addNumber(5);
+        span1.addNumber(20);
+        std::cout << "shortest Span: " << span1.shortestSpan() << std::endl;
+        std::cout << "longest Span: " << span1.longestSpan() << std::endl;
 
+        std::cout << "\n--------------------------\n\n";
+        
+        // Test Case 2: Add a range of numbers using push_back
+        std::vector<int> numbers;
+        numbers.push_back(7);
+        numbers.push_back(15);
+        numbers.push_back(3);
+        numbers.push_back(9);
+        span1.addNumbers(numbers.begin(), numbers.end());
+         std::cout << "shortest Span: " << span1.shortestSpan() << std::endl;
+        std::cout << "longest Span: " << span1.longestSpan() << std::endl;
+
+        std::cout << "All tests passed!" << std::endl;
+    }
+    catch(std::exception &e)
+    {
+        std::cout << e.what() << '\n';
+    }
+    std::cout << "\n*************************\n\n";
+    try
+    {
+        Span sp;
+        int span = sp.shortestSpan();
+        std::cout << "shortest Span: " << span << std::endl;
+    }
+    catch(std::exception &e)
+    {
+        std::cout << e.what() << '\n';
+    }
+    
     return 0;
 }

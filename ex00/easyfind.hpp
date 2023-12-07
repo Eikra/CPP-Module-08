@@ -6,7 +6,7 @@
 /*   By: iecharak <iecharak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 12:15:22 by iecharak          #+#    #+#             */
-/*   Updated: 2023/11/28 21:17:03 by iecharak         ###   ########.fr       */
+/*   Updated: 2023/12/07 21:39:05 by iecharak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 #define EASYFIND_HPP
 
 #include <iostream>
+#include <list>
+#include <vector>
 #include <algorithm>
 
 template <typename T>
-
-typename T::iterator    easyfind(T& container, int i)
+typename T::iterator    easyfind(T &container, int i)
 {
     typename T::iterator it;
     

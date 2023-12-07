@@ -6,13 +6,13 @@
 #    By: iecharak <iecharak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/26 20:13:56 by iecharak          #+#    #+#              #
-#    Updated: 2023/11/28 20:37:54 by iecharak         ###   ########.fr        #
+#    Updated: 2023/12/07 21:57:15 by iecharak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Span
 
-SRC = main.cpp
+SRC = main.cpp Span.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

@@ -6,7 +6,7 @@
 /*   By: iecharak <iecharak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 20:14:09 by iecharak          #+#    #+#             */
-/*   Updated: 2023/11/28 20:37:05 by iecharak         ###   ########.fr       */
+/*   Updated: 2023/12/07 22:00:18 by iecharak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,79 +15,50 @@
 
 #include <iostream>
 #include <vector>
-#include <stdexcept>
-#include <limits>
 #include <algorithm>
+#include <iterator>
+#include <limits>
+#include <stdexcept>
 
-class Span {
-private:
-    std::vector<int> numbers;
-    unsigned int maxSize;
-    Span() : maxSize(0){}
+class Span
+{
+    private:
+        std::vector<int> arr;
+        unsigned int maxIntegers;
 
-public:
-    // Constructor
-    Span(unsigned int N) : maxSize(N) {}
+    public:
+        Span();
+        Span(unsigned int n);
+        Span(const Span &src);
+        Span &operator=(const Span &src);
+        ~Span();
 
-    // Copy constructor
-    Span(const Span& other) : numbers(other.numbers), maxSize(other.maxSize) {}
+        void addNumber(int i);
+        unsigned int shortestSpan();
+        unsigned int longestSpan();
 
-    // Copy assignment operator
-    Span& operator=(const Span& other) {
-        if (this != &other) {
-            numbers = other.numbers;
-            maxSize = other.maxSize;
-        }
-        return *this;
-    }
+        template <class ForwardIterator>
+        void addNumbers(ForwardIterator first, ForwardIterator last)
+        {
+            if (arr.size() == maxIntegers)
+                throw std::out_of_range("Span is already full");
 
-    // Destructor
-    ~Span() {}
-
-    // Member functions
-    void addNumber(int num) {
-        if (numbers.size() >= maxSize) {
-            throw std::out_of_range("Span is already full");
-        }
-        numbers.push_back(num);
-    }
-
-    void addNumbers(const std::vector<int>& nums) {
-        if (numbers.size() + nums.size() > maxSize) {
-            throw std::out_of_range("Adding these numbers will exceed the maximum size of Span");
-        }
-        numbers.insert(numbers.end(), nums.begin(), nums.end());
-    }
-
-    int shortestSpan() {
-        if (numbers.size() <= 1) {
-            throw std::logic_error("Not enough numbers to find a span");
-        }
-
-        std::vector<int> tmp = numbers;
-        std::sort(tmp.begin(), tmp.end());
-        int minSpan = std::numeric_limits<int>::max();
-
-        for (std::vector<int>::iterator it = std::next(tmp.begin()); it != tmp.end(); ++it) {
-            int span = *it - *(std::prev(it));
-            if (span < minSpan) {
-                minSpan = span;
+            unsigned int rangeSize = 0;
+            ForwardIterator tmpIterator = first;
+            while (tmpIterator != last)
+            {
+                rangeSize++;
+                tmpIterator++;
             }
+
+            if ((arr.size() + rangeSize) < maxIntegers)
+            {
+                for (ForwardIterator it = first; it != last; ++it)
+                    arr.push_back(*it);
+            }
+            else
+                throw std::out_of_range("Filling your Span using this range of iterators will exceed its capacity");
         }
-
-        return minSpan;
-    }
-
-    int longestSpan() {
-        if (numbers.size() <= 1) {
-            throw std::logic_error("Not enough numbers to find a span");
-        }
-
-        std::pair<std::vector<int>::iterator, std::vector<int>::iterator> minMax =
-            std::minmax_element(numbers.begin(), numbers.end());
-
-        return *(minMax.second) - *(minMax.first);
-    }
 };
 
 #endif
