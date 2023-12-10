@@ -52,12 +52,19 @@ unsigned int Span::shortestSpan()
     std::vector<int> tmp = arr;
     std::sort(tmp.begin(), tmp.end());
     
-    int minSpan = std::numeric_limits<int>::max();
-    for (std::vector<int>::iterator it = std::next(tmp.begin()); it != tmp.end(); ++it)
+    int minSpan = *(--tmp.end()) - *(tmp.begin());
+    ++tmp.end();
+    std::vector<int>::iterator itPrev = tmp.begin();
+    std::vector<int>::iterator itNext = tmp.begin();
+
+    ++itNext;
+    while (itNext != tmp.end())
     {
-        int tmpSpan = *(it) - *(std::prev(it));
+        int tmpSpan = *(itNext) - *(itPrev);
         if (minSpan > tmpSpan)
             minSpan = tmpSpan;
+        ++itNext;
+        ++itPrev;
     }
     return minSpan;
 }
@@ -67,9 +74,9 @@ unsigned int Span::longestSpan()
     if (arr.size() <= 1)
         throw std::logic_error("Not enough numbers to find a span");
 
-    std::pair<std::vector<int>::iterator, std::vector<int>::iterator> tmpPair;
-    tmpPair = std::minmax_element(arr.begin(), arr.end());
-    return *(tmpPair.second) - *(tmpPair.first);
+    std::vector<int> tmp = arr;
+    std::sort(tmp.begin(), tmp.end());
+    return  *(--tmp.end()) - *(tmp.begin());
 }
 
 // template <class ForwardIterator>

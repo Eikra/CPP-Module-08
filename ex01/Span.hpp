@@ -51,10 +51,10 @@ class Span
                 tmpIterator++;
             }
 
-            if ((arr.size() + rangeSize) < maxIntegers)
+            if ((arr.size() + rangeSize) <= maxIntegers)
             {
                 for (T it = first; it != last; ++it)
-                    arr.push_back(*it);
+                    addNumber(*it);
             }
             else
                 throw std::out_of_range("Filling your Span using this range of iterators will exceed its capacity");

@@ -38,7 +38,7 @@ void    test()
 
 int main()
 {
-    //test();
+   // test();
     {
         std::list<int> mstack;
         mstack.push_back(5);
