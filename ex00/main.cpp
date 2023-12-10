@@ -6,7 +6,7 @@
 /*   By: iecharak <iecharak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 12:42:58 by iecharak          #+#    #+#             */
-/*   Updated: 2023/12/07 21:35:26 by iecharak         ###   ########.fr       */
+/*   Updated: 2023/12/10 12:41:20 by iecharak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int main()
 
     try
     {
-        std::vector<int>::iterator result = easyfind(vec, 3);
+        std::vector<int>::iterator result = easyfind(vec, 4);
         std::cout << "Value found in container " << *result << std::endl;
     }
     catch (const std::out_of_range &e)
     {
-        std::cerr << e.what() << std::endl;
+        std::cout << e.what() << std::endl;
     }
 
     // Test with std::list
@@ -47,7 +47,7 @@ int main()
     }
     catch (const std::out_of_range &e)
     {
-        std::cerr << e.what() << std::endl;
+        std::cout << e.what() << std::endl;
     }
 
     return 0;

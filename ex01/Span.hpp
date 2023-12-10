@@ -6,7 +6,7 @@
 /*   By: iecharak <iecharak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 20:14:09 by iecharak          #+#    #+#             */
-/*   Updated: 2023/12/07 22:00:18 by iecharak         ###   ########.fr       */
+/*   Updated: 2023/12/10 11:12:18 by iecharak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ class Span
         unsigned int shortestSpan();
         unsigned int longestSpan();
 
-        template <class ForwardIterator>
-        void addNumbers(ForwardIterator first, ForwardIterator last)
+        template <class T>
+        void addNumbers(T first, T last)
         {
             if (arr.size() == maxIntegers)
                 throw std::out_of_range("Span is already full");
 
             unsigned int rangeSize = 0;
-            ForwardIterator tmpIterator = first;
+            T tmpIterator = first;
             while (tmpIterator != last)
             {
                 rangeSize++;
@@ -53,7 +53,7 @@ class Span
 
             if ((arr.size() + rangeSize) < maxIntegers)
             {
-                for (ForwardIterator it = first; it != last; ++it)
+                for (T it = first; it != last; ++it)
                     arr.push_back(*it);
             }
             else

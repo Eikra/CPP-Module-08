@@ -6,7 +6,7 @@
 /*   By: iecharak <iecharak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 21:52:56 by iecharak          #+#    #+#             */
-/*   Updated: 2023/12/07 20:52:13 by iecharak         ###   ########.fr       */
+/*   Updated: 2023/12/10 12:35:53 by iecharak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ template <typename T, typename Container = std::deque<T> >
 class MutantStack : public std::stack<T, Container> 
 {
     public:
-        typedef typename Container::iterator iterator;
-        typedef typename Container::const_iterator const_iterator;
-        typedef typename Container::reverse_iterator reverse_iterator;
-        typedef typename Container::const_reverse_iterator const_reverse_iterator;
+        typedef typename Container::iterator                iterator;
+        typedef typename Container::const_iterator          const_iterator;
+        typedef typename Container::reverse_iterator        reverse_iterator;
+        typedef typename Container::const_reverse_iterator  const_reverse_iterator;
 
         // Constructors
         MutantStack() : std::stack<T, Container>() {}
@@ -34,7 +34,7 @@ class MutantStack : public std::stack<T, Container>
         // Assignment operator
         MutantStack& operator=(const MutantStack& src) {
             if (this != &src) {
-                std::stack<T, Container>::operator=(src);
+                this->c = src.c;
             }
             return *this;
         }

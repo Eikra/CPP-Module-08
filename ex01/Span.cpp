@@ -6,7 +6,7 @@
 /*   By: iecharak <iecharak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 20:34:05 by iecharak          #+#    #+#             */
-/*   Updated: 2023/12/07 21:59:45 by iecharak         ###   ########.fr       */
+/*   Updated: 2023/12/10 12:26:12 by iecharak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ unsigned int Span::shortestSpan()
 
     std::vector<int> tmp = arr;
     std::sort(tmp.begin(), tmp.end());
-
+    
     int minSpan = std::numeric_limits<int>::max();
     for (std::vector<int>::iterator it = std::next(tmp.begin()); it != tmp.end(); ++it)
     {
